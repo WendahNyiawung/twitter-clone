@@ -1,0 +1,17 @@
+
+/* width */
+::-webkit-scrollbar {
+    width: 0rem;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgba(206, 205, 205, 0.233); 
+    border-radius: 0px;
+    height: 0rem;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #fff; 
+  }

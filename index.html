@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/styel2.css">
+    <link rel="stylesheet" href="assets/fontawesome/css/all.css">
+    <title>Twitter</title>
+</head>
+<body>
+    <div class="flex overflow-y-hidden min-h-screen h-screen" id="app">
+        <div class="w-1/4 overflow-y-auto flex flex-col items-center py-2 px-12 sm:px-4 md:px-4 border-r border-gray-300">
+          <button class="rounded-full hover:bg-blue-200 h-12 w-12 focus:outline-none mb-4 mr-auto md:ml-auto">
+            <i class="fab fa-twitter text-3xl text-blue-400 text-center p-2"></i>
+          </button>
+          
+            <button v-for="sidebtn in sidebtn" class="rounded-full p-2 hover:bg-blue-100 focus:outline-none flex items-center hover:text-blue-400 text-xl mr-auto md:ml-auto">
+                <i :class="`${sidebtn.icon}`"></i>
+                <p class="font-bold mx-6 sm:hidden md:hidden">{{ sidebtn.title }}</p>
+            </button>
+            <button class="bg-blue-500 hover:bg-blue-600 py-3 sm:py-2 px-2 sm:px-2 rounded-full font-bold text-white mt-4 focus:outline-none flex items-center justify-center sm:w-10 md:w-10 w-full">
+                <svg 
+                    class=" text-white fill-current h-5 lg:hidden xl:hidden">
+                    <g>
+                        <path
+                            d="M8.8 7.2H5.6V3.9c0-.4-.3-.8-.8-.8s-.7.4-.7.8v3.3H.8c-.4 0-.8.3-.8.8s.3.8.8.8h3.3v3.3c0 .4.3.8.8.8s.8-.3.8-.8V8.7H9c.4 0 .8-.3.8-.8s-.5-.7-1-.7zm15-4.9v-.1h-.1c-.1 0-9.2 1.2-14.4 11.7-3.8 7.6-3.6 9.9-3.3 9.9.3.1 3.4-6.5 6.7-9.2 5.2-1.1 6.6-3.6 6.6-3.6s-1.5.2-2.1.2c-.8 0-1.4-.2-1.7-.3 1.3-1.2 2.4-1.5 3.5-1.7.9-.2 1.8-.4 3-1.2 2.2-1.6 1.9-5.5 1.8-5.7z">
+                        </path>
+                    </g>
+                </svg>
+                <p class="sm:hidden md:hidden">Tweet</p>
+            </button>
+            <!--Logout menu-->
+            <template v-if="Logout">
+                <div  @click="Logout=!Logout" class="rounded shadow  border border-gray-300 w-1/5 sm:w-64 md:w-64 bg-white absolute bottom-0 md:left-0 mb-16 md ml-4">
+                    <div class="border-b border-gray-300">
+                        <div class="flex items-center justify-between px-3 py-3">
+                            <div class="flex items-start">
+                                <img src="assets/img/jay.jpg" alt="" class="h-10 sm:h-8 object-cover rounded-full">
+                                <div class="ml-2">
+                                    <p class="font-bold">Wendahdesmond</p>
+                                    <p class="text-gray-600 text-sm">@Wendahdesmond</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-check text-blue-400 font-semibold"></i>
+                        </div>
+                    </div>
+                    <button class="border-b border-gray-300 w-full py-4 hover:bg-blue-100 text-left px-3 focus:outline-none">
+                        Add an existing account
+                    </button>
+                    <button class=" w-full py-4 hover:bg-blue-100 text-left px-3 focus:outline-none">
+                        Log out @Wendahdesmond
+                    </button>
+                </div>
+            </template>
+    
+
+            <button @click="Logout=!Logout"  class="flex items-center justify-between mt-12 focus:outline-none rounded-full hover:bg-blue-100 px-2 w-full md:ml-auto">
+                <div class="flex items-start">
+                    <img src="assets/img/jay.jpg" alt="" class="h-10 sm:h-8  object-cover rounded-full">
+                    <div class="ml-2 sm:hidden md:hidden">
+                        <p class="font-bold">Wendahdesmond</p>
+                        <p class="text-gray-600 text-sm">@Wendahdesmond</p>
+                    </div>
+                </div>
+               <div class="sm:hidden md:hidden">
+                    <i class="fas fa-angle-down "></i>
+               </div>
+            </button>
+           
+       
+        </div>
+        <div class="w-1/2 overflow-y-auto sm:flex-1  md:w-full py-2 border-r border-gray-300 ">
+           <div class="flex items-center justify-between border-b border-gray-300 px-4 bg-white top-0">
+               <h1 class="font-extrabold text-xl">Home</h1>
+                <button class="rounded-full hover:bg-blue-200 h-10 w-10 focus:outline-none mb-4  md:ml-auto">
+                    <i class="far fa-star  text-blue-400 text-center p-2"></i>
+                </button>
+           </div>
+          <div class="flex items-start px-4 py-3 border-b-8 pb-3 border-gray-300">
+                <img src="assets/img/jay.jpg" alt="" class="h-12 sm:h-8  object-cover rounded-full mr-3">
+                <form v-on:submit.prevent="addTweet" class="flex flex-col w-full ">
+                   <div class=" border-b border-gray-300">
+                        <textarea v-model="tweet.content" class="w-full focus:outline-none px-1 h-8" placeholder="What's Happening?"></textarea>
+                        <div  @click="reply=!reply"
+                            class="flex items-center text-blue-400 cursor-pointer hover:bg-blue-100 px-1 py-1 mb-3 rounded-full focus:outline-none w-1/3 font-bold">
+                            <i class="fas fa-globe mr-2"></i>
+                            Everyone can reply
+                        </div>
+                        <template v-if="reply">
+                            <div
+                                class="rounded shadow  border border-gray-300 w-1/4 sm:w-64 md:w-64 bg-white absolute top-0 mt-40 md:left-0 mb-16 md ml-4">
+                                <button class=" w-full py-2 text-left px-3 focus:outline-none">
+                                    <h1 class="font-bold">Who can reply?</h1>
+                                    <p class="text-gray-600">Choose who can reply to this Tweet. Anyone mentioned can always reply.</p>
+                                </button>
+                                
+                                    <div class="flex items-center justify-between px-3 py-2  hover:bg-blue-100">
+                                        <div class="flex items-center">
+                                            <button class="rounded-full bg-blue-500 h-10 w-10 focus:outline-none md:ml-auto mt-2">
+                                                <i class="fas fa-globe  text-white text-center p-2"></i>
+                                            </button>
+                                            <div class="ml-2">
+                                                Everyone
+                                            </div>
+                                        </div>
+                                        <i class="fas fa-check text-blue-400 font-semibold"></i>
+                                    </div>
+                                
+                                <button class=" w-full py-2 hover:bg-blue-100 text-left px-3 focus:outline-none flex items-center">
+                                    <div class="rounded-full bg-blue-500 h-10 w-10 focus:outline-none px-3 py-2 mr-2">
+                                        <i class="fas fa-user-friends  text-white text-center"></i>
+                                    </div>
+                                    People you follow
+
+                                </button>
+                                <button class=" w-full py-4 hover:bg-blue-100 text-left px-3 focus:outline-none flex items-center">
+                                    <div class="rounded-full bg-blue-500 h-10 w-10 focus:outline-none px-3 py-2 mr-2">
+                                        <i class="fas fa-at  text-white text-center"></i>
+                                    </div>
+                                    Only People you mentioned
+
+                                </button>
+                                
+                            </div>
+                        </template>
+                   </div>
+                   <div class="flex justify-between items-center sm:flex-col mt-4">
+                        <div class="flex text-blue-400 mt-4 text-xl">
+                            <i class="far fa-image  mx-4"></i>
+                            <i class="fas fa-photo-video"></i>
+                            <i class="far fa-chart-bar mx-4"></i>
+                            <i class="far fa-grin"></i>
+                            <i class="far fa-calendar-check mx-4"></i>
+                        </div>
+                        <button type="submit" class="bg-blue-400 text-white rounded-full px-3 py-1 focus:outline-none sm:mt-4 sm:w-full">Tweet</button>
+                   </div>
+                </form>
+          </div>
+
+          <!--Tweets-->
+        <div class="flex flex-col-reverse">
+            <div v-for="mytweets in mytweets" class="w-full p-4 border-b hover:bg-lighter flex">
+                <div class="flex-none mr-4">
+                    <img src="assets/img/jay.jpg" class="h-12 w-12 rounded-full flex-none" />
+                </div>
+                <div class="w-full">
+                    <div class="flex items-center w-full">
+                        <p class="font-bold">Wendah Desmond</p>
+                        <p class="text-sm text-gray-600 ml-2">@Wendahdesmond</p>
+                        <p class="text-sm text-gray-600 ml-2"> 1 sec </p>
+                        <i class="fas fa-angle-down text-dark ml-auto text-sm  text-gray-500"></i>
+                    </div>
+                    <p class="py-2">
+                        {{ mytweets.content }}
+                    </p>
+                    <div class="flex items-center justify-between w-full">
+                        <div class="flex items-center text-sm text-gray-600">
+                            <i class="far fa-comment mr-3"></i>
+                            <p> 0 </p>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-retweet mr-3"></i>
+                            <p> 0 </p>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-heart mr-3 text-red-600"></i>
+                            <p> 2 </p>
+                        </div>
+                        <div class="flex items-center text-sm text-dark">
+                            <i class="fas fa-share-square mr-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          
+        <div v-for="tweets in tweets" class="">
+                <div class="flex items-start px-4 mt-2 border-b border-gray-300 py-2">
+                    <img :src="`${ tweets.src }`" alt="" class="w-12 h-12 rounded-full object-cover">
+                    <div class="flex flex-col ml-2">
+                        <div class="flex items-center w-full">
+                            <div class="w-full">
+                                <p class="font-bold">{{ tweets.name }} <span
+                                        class="font-normal text-gray-600 ml-1">{{ tweets.handle }}</span> <span
+                                        class="font-normal text-gray-600 ml-1">{{ tweets.time }}</span></p>
+                            </div>
+                            <i class="fas fa-angle-down text-sm  text-gray-500 "></i>
+                        </div>
+                        <p>{{ tweets.tweet}}</p>
+                        <div class="flex items-center justify-between mt-3 text-gray-600">
+                            <div class="flex items-center text-sm text-dark">
+                                <i class="far fa-comment mr-3"></i>
+                                <p> {{ tweets.comments }} </p>
+                            </div>
+                            <div class="flex items-center text-sm text-dark">
+                                <i class="fas fa-retweet mr-3"></i>
+                                <p> {{ tweets.retweets }} </p>
+                            </div>
+                            <div class="flex items-center text-sm text-dark">
+                                <i class="fas fa-heart mr-3 text-red-600"></i>
+                                <p> {{ tweets.like }} </p>
+                            </div>
+                            <div class="flex items-center text-sm text-dark">
+                                <i class="fas fa-share-square mr-3"></i>
+                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </div>
+        <!--Trednding sction-->
+        <div class="w-1/3  overflow-y-auto sm:hidden md:hidden py-3 px-8">
+       <div class="flex items-center">
+            <i class="fas fa-search  ml-4 mb-3 text-gray-500 absolute"></i>
+            <input class="pl-12 rounded-full w-full p-2 bg-gray-200 text-sm mb-4" placeholder="Search Twitter" />
+       </div>
+        <div class="w-full rounded-lg bg-blue-100">
+            <div class="flex items-center justify-between p-3">
+                <p class="text-lg font-bold">Trends for You</p>
+                <i class="fas fa-cog text-lg text-blue"></i>
+            </div>
+            <button v-for="trend in trending" class="w-full flex justify-between hover:bg-lighter p-3 border-t border-lighter">
+                <div>
+                    <p class="text-xs text-left leading-tight text-dark"> {{ trend.top}} </p>
+                    <p class="font-semibold text-sm text-left leading-tight mt-2"> {{ trend.title}} </p>
+                    <p class="text-left text-sm leading-tight text-gray-600 mt-2"> {{ trend.bottom}} </p>
+                </div>
+                <i class="fas fa-angle-down text-lg text-dark"></i>
+            </button>
+            <button class="p-3 w-full hover:bg-lighter text-left text-blue border-t border-lighter">
+                Show More
+            </button>
+        </div>
+        <div class="w-full rounded-lg bg-lightest my-4">
+            <div class=" p-3">
+                <p class="text-lg font-bold">Who to Follow</p>
+            </div>
+            <button v-for="friend in friends" class="w-full flex hover:bg-lighter p-3 border-t border-lighter">
+                <img :src="`${ friend.src }`" class="w-12 h-12 rounded-full" />
+                <div class="hidden lg:block ml-4">
+                    <p class="text-sm font-bold leading-tight"> {{ friend.name }} </p>
+                    <p class="text-sm leading-tight"> {{ friend.handle }} </p>
+                </div>
+                <button class="ml-auto text-sm text-blue py-1 px-4 rounded-full border-2 border-blue">
+                    Follow
+                </button>
+            </button>
+            <button class="p-3 w-full hover:bg-lighter text-left text-blue border-t border-lighter">
+                Show More
+            </button>
+        </div>
+        </div>
+    </div>
+   <script src="assets/js/vue.js"></script> 
+   <script>
+       new Vue({
+           el:'#app',
+           data:{
+              sidebtn:[
+                  {icon:'fas fa-home', title:'Home',},
+                  {icon:'fas fa-hashtag', title:'Explore',},
+                  {icon:'far fa-bell', title:'Notifications',},
+                  {icon:'far fa-envelope', title:'Messages',},
+                  {icon:'far fa-bookmark', title:'Bookmarks',},
+                  {icon:'fas fa-clipboard-list', title:'List',},
+                  {icon:'far fa-user', title:'Profile', },
+                  {icon:'fas fa-ellipsis-h', title:'More',},
+              ],
+              Logout:false,
+              reply:false,
+                  trending: [
+                   { top: 'Trending in Yaounde', title: '#NotophoneTax', bottom: '958K Tweets' },
+                   { top: 'Music', title: '#TuvaslirelheureVSstrongenemis', bottom: '135K Tweets' },
+                   { top: 'Pop', title: 'Blue Ivy', bottom: '40k tweets' },
+                   { top: 'Trending in US', title: 'Denim Day', bottom: '40k tweets' },
+                   { top: 'Trending', title: 'When Beyonce', bottom: '25.4k tweets' },
+               ],
+                 friends: [
+                   { src: 'assets/img/jay.jpg', name: 'Elon Musk', handle: '@teslaBoy' },
+                   { src: 'monk.jpg', name: 'Adrian Monk', handle: '@detective:)' },
+                   { src: 'kevin.jpg', name: 'Kevin Hart', handle: '@miniRock' }
+               ],
+               tweets: [
+                   { src: 'assets/img/twit-1.jpg', name: 'shayana', handle: '@shayanaBanks', time: '20 min', tweet: 'My home is a different story, and I want to study algebra. Everyone needs good homes, I say. #sickfest #randomtweet', comments: '1k', retweets: '550K', like: '1.4M' },
+                   { src: 'assets/img/twit-2.jpg', name: 'Jenis Monrow', handle: '@janisRock', time: '55 min', tweet: 'My smile is debt free, and I want to upgrade my phone. More hot trials, for some reason. #powergames #randomtweet', comments: '203', retweets: '15K', like: '20K' },
+                   { src: 'assets/img/twit-3.jpg', name: 'John Deli', handle: '@OGBoy', time: '1.4 hr', tweet: 'My ingenuity is so embarrassing, and I want to be safer. Craptastic better lingerie, again. #luckygate #randomtweet', comments: '100k', retweets: '1.2M', like: '5M' },
+                   { src: 'assets/img/twit-4.jpg', name: 'Micheal Min', handle: '@michealminton', time: '1.4 hr', tweet: 'My existence is paid for, and I want to travel more. More casual cowards, for starters. #jinglesport #randomtweet', comments: '105K', retweets: '1.4M', like: '5.3M' }
+               ],
+                mytweets: [
+                   { content: 'Learning Vue JS and Tailwindcss has rewlly been an awesome jurney!' }
+               ],
+                tweet: { content: '' }
+           },
+             methods: {
+               addTweet() {
+                   let newTweet = {
+                       content: this.tweet.content
+                   };
+                   this.mytweets.push(newTweet);
+                      let emptytextarea = {
+                       content: this.tweet.content = ''
+                   };  
+               }
+           }
+       })
+   </script>
+   
+</body>
+</html>

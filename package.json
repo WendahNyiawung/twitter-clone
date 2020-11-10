@@ -1,0 +1,14 @@
+{
+  "name": "twitter",
+  "version": "1.0.0",
+  "description": "a twiter web app created with tailwind css and vue Js",
+  "main": "index.js",
+  "scripts": {
+    "build:css": " tailwindcss build assets/css/main.css -o assets/css/style.css"
+  },
+  "author": "Wendah Nyiawung",
+  "license": "ISC",
+  "dependencies": {
+    "tailwindcss": "^1.8.13"
+  }
+}
